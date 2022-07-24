@@ -1,8 +1,6 @@
-import { UnitEnum } from "src/types/unitEnum"
+import { ListItem } from "src/types/listItem"
 
 export class CreateListDto {
-  id: string
-  quantity: number
-  description: string
-  unit: UnitEnum
+  name: string
+  items: ListItem[]
 }

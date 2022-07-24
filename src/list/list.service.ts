@@ -1,26 +1,37 @@
-import { Injectable } from '@nestjs/common';
-import { CreateListDto } from './dto/create-list.dto';
-import { UpdateListDto } from './dto/update-list.dto';
+import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
+import { CreateListDto } from './dto/create-list.dto'
+import { UpdateListDto } from './dto/update-list.dto'
+import { ListDocument } from './entities/list.entity'
 
 @Injectable()
 export class ListService {
+  constructor(
+    @InjectModel('List') private readonly listModel: Model<ListDocument>
+  ) { }
   create(createListDto: CreateListDto) {
-    return 'This action adds a new list';
+    const list = new this.listModel(createListDto)
+    return list.save()
   }
 
   findAll() {
-    return `This action returns all list`;
+    return this.listModel.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} list`;
+  findOne(id: string) {
+    return this.listModel.findById(id)
   }
 
-  update(id: number, updateListDto: UpdateListDto) {
-    return `This action updates a #${id} list`;
+  update(id: string, updateListDto: UpdateListDto) {
+    //TODO: update this method to update the list items only
+    const list = this.listModel.findById(id)
+    console.log('list updated', updateListDto)
+    console.log('list found', list)
+    return `Ok`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} list`;
+  remove(id: string) {
+    return this.listModel.deleteOne({ _id: id }).exec()
   }
 }

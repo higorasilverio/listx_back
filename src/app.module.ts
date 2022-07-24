@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ListController } from './list/list.controller';
+import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { ListModule } from './list/list.module';
-import { ListService } from './list/list.service';
 
 @Module({
-  imports: [ListModule],
-  controllers: [ListController],
-  providers: [ListService],
+  imports: [
+    ListModule,
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGODB),
+  ]
 })
 
 export class AppModule { }
