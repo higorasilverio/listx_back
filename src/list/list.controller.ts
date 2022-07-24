@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { CreateListDto } from './dto/create-list.dto';
-import { UpdateListDto } from './dto/update-list.dto';
-import { ListService } from './list.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
+import { CreateListDto } from './dto/create-list.dto'
+import { UpdateItemDto } from './dto/update-items.dto'
+import { ListService } from './list.service'
 
 @Controller('list')
 export class ListController {
@@ -9,26 +9,26 @@ export class ListController {
 
   @Post()
   create(@Body() createListDto: CreateListDto) {
-    return this.listService.create(createListDto);
+    return this.listService.create(createListDto)
   }
 
   @Get()
   findAll() {
-    return this.listService.findAll();
+    return this.listService.findAll()
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.listService.findOne(id);
+    return this.listService.findOne(id)
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateListDto: UpdateListDto) {
-    return this.listService.update(id, updateListDto);
+  updateItem(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
+    return this.listService.updateItem(id, updateItemDto)
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.listService.remove(id);
+    return this.listService.remove(id)
   }
 }
