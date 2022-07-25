@@ -22,9 +22,24 @@ export class ListController {
     return this.listService.findOne(id)
   }
 
+  @Get(':listId/item/:itemId')
+  findItem(@Param('listId') listId: string, @Param('itemId') itemId: string) {
+    return this.listService.findItem(listId, itemId)
+  }
+
+  @Patch(':id/new-item')
+  addItem(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
+    return this.listService.addItem(id, updateItemDto)
+  }
+
   @Patch(':id')
   updateItem(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
     return this.listService.updateItem(id, updateItemDto)
+  }
+
+  @Patch(':listId/delete-item/:itemId')
+  deleteItem(@Param('listId') listId: string, @Param('itemId') itemId: string) {
+    return this.listService.deleteItem(listId, itemId)
   }
 
   @Delete(':id')
